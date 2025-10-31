@@ -1,14 +1,9 @@
-"use client"
-import Link from "next/link";
+import { redirect } from "next/navigation";
 
 function Home() {
 
+  redirect("/auth/login");
 
-  return (
-   <>
-   <h1>This is Teacherss home page</h1>
-   </>
-  );
 }
 
 export default Home;

@@ -9,7 +9,7 @@ import { fetchLessons } from "@/lib/store/lesson/lesson-slice";
 
 
 function Lesson() {
-  const { chapters } = useAppSelector((store) => store.chapter);
+  const { lessons } = useAppSelector((store) => store.lesson);
   const dispatch = useAppDispatch();
   const { courseId, chapterId } = useParams<{ courseId: string, chapterId: string }>()
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -71,72 +71,49 @@ function Lesson() {
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                   <th className="py-3 px-6 text-left">ID</th>
                   <th className="py-3 px-6 text-left">LessonName</th>
-                  <th className="py-3 px-6 text-left">Level</th>
-                  <th className="py-3 px-6 text-left">Duration</th>
-                  <th className="py-3 px-6 text-left">CourseId</th>
+                  <th className="py-3 px-6 text-left">LessonDescription</th>
+                  <th className="py-3 px-6 text-left">LessonThumbnailUrl</th>
+                  <th className="py-3 px-6 text-left">LessonVideoUrl</th>
+                  <th className="py-3 px-6 text-left">ChapterId</th>
                   <th className="py-3 px-6 text-left">CreatedAt</th>
                   <th className="py-3 px-6 text-left">UpdatedAt</th>
-                  <th className="py-3 px-6 text-left">Lessons</th>
                   <th className="py-3 px-6 text-center">Actions</th>
                 </tr>
               </thead>
               <tbody className="text-gray-600 text-sm">
-                {chapters.length > 0 &&
-                  chapters.map((chapter) => {
+                {lessons.length > 0 &&
+                  lessons.map((lesson) => {
                     return (
                       <tr
-                        key={chapter.id}
+                        key={lesson.id}
                         className="border-b border-gray-200 hover:bg-gray-100"
                       >
                         <td className="py-3 px-6 text-left">
-                          {chapter.id}
+                          {lesson.id}
                         </td>
                         <td className="py-3 px-6 text-left">
-                          {chapter.chapterName}
+                          {lesson.lessonName}
                         </td>
                         <td className="py-3 px-6 text-left">
-                          {chapter.chapterLevel}
+                          {lesson.lessonDescription}
                         </td>
                         <td className="py-3 px-6 text-left">
-                          {chapter.chapterDuration}
+                          {lesson.lessonThumbnailUrl}
                         </td>
                         <td className="py-3 px-6 text-left">
-                          {chapter.courseId}
+                          {lesson.lessonVideoUrl}
+                        </td>
+                        <td className="py-3 px-6 text-left">
+                          {lesson.chapterId}
                         </td>
 
                         <td className="py-3 px-6 text-left">
-                          {new Date(chapter.createdAt).toLocaleDateString()}
+                          {new Date(lesson.createdAt).toLocaleDateString()}
                         </td>
                         <td className="py-3 px-6 text-left">
-                          {new Date(chapter.updatedAt).toLocaleDateString()}
+                          {new Date(lesson.updatedAt).toLocaleDateString()}
                         </td>
-                        <td className="py-3 px-6 text-center">
-                          <button
-                            onClick={() => redirect(`/teacher/dashboard/courses/${courseId}/chapters/${chapter.id}/lessons`)}
-                            className="w-4 mr-2 transform hover:text-blue-500 hover:scale-110"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              {/* 👇 Replace old path with these two */}
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                              />
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                              />
-                            </svg>
-                          </button>
-                        </td>
+
                         <td className="py-3 px-6 text-center">
                           <div className="flex item-center justify-center">
                             <button className="w-4 mr-2 transform hover:text-blue-500 hover:scale-110">
@@ -176,7 +153,14 @@ function Lesson() {
                         </td>
                       </tr>
                     );
-                  })}
+                  }) ||
+                  <tr>
+                    <td colSpan={9} className="py-3 px-6 text-center">
+                      Lesson empty !!!
+                    </td>
+                  </tr>
+
+                }
               </tbody>
             </table>
           </div>

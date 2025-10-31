@@ -1,10 +1,9 @@
 "use client";
 
-
 import { Status } from "@/lib/global/types/global-type";
-import { createChapters, resetStatus } from "@/lib/store/chapter/chapter-slice";
-import { Ichapter } from "@/lib/store/chapter/chapter-slice.types";
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
+import { createLesson, resetStatus } from "@/lib/store/lesson/lesson-slice";
+import { Ilesson } from "@/lib/store/lesson/lesson-slice.types";
 import { useParams } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 
@@ -15,18 +14,20 @@ type ModalProps = {
 function Modal({ closeModal }: ModalProps) {
     const { status } = useAppSelector((store) => store.chapter);
     const dispatch = useAppDispatch();
-    const { courseId } = useParams<{ courseId: string }>()
+    const { chapterId } = useParams<{ chapterId: string }>()
 
     const [loading, setLoading] = useState(false);
 
-    const [data, setData] = useState<Ichapter>({
-        chapterName: "",
-        chapterDuration: "",
-        chapterLevel: ""
+    const [data, setData] = useState<Ilesson>({
+        lessonName: "",
+        lessonDescription: "",
+        lessonVideoUrl: "",
+        lessonThumbnailUrl: ""
+
     })
     console.log(data, "Data.........");
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
         setData({
             ...data,
@@ -39,7 +40,7 @@ function Modal({ closeModal }: ModalProps) {
         setLoading(true);
         const token = localStorage.getItem("token");
         if (token) {
-            dispatch(createChapters(token, courseId, data));
+            dispatch(createLesson(token, chapterId, data));
         }
     };
     useEffect(() => {
@@ -87,62 +88,77 @@ function Modal({ closeModal }: ModalProps) {
                         method="POST"
                         className="space-y-4"
                     >
-                        {/* ChapterName */}
+                        {/* LessonName */}
                         <div>
                             <label
-                                htmlFor="chapterName"
+                                htmlFor="lessonName"
                                 className="block font-semibold text-gray-700 mb-1"
                             >
-                                Chapter Name
+                                Lesson Name
                             </label>
                             <input
                                 onChange={handleChange}
                                 type="text"
-                                id="chapterName"
-                                name="chapterName"
+                                id="lessonName"
+                                name="lessonName"
                                 required
                                 className="w-full px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="Type Chapter Name..."
+                                placeholder="Type Lesson Name..."
                             />
                         </div>
-                        {/* ChapterDuration */}
+                        {/* LessonDescription */}
                         <div>
                             <label
-                                htmlFor="chapterDuration"
+                                htmlFor="lessonDescription"
                                 className="block font-semibold text-gray-700 mb-1"
                             >
-                                Chapter Duration
+                                Lesson Description
                             </label>
                             <input
                                 onChange={handleChange}
                                 type="text"
-                                id="chapterDuration"
-                                name="chapterDuration"
+                                id="lessonDescription"
+                                name="lessonDescription"
                                 required
                                 className="w-full px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="Type Chapter Duration..."
+                                placeholder="Type Lesson Description..."
                             />
                         </div>
-                        {/* ChapterLevel */}
+                        {/* LessonVideoUrl */}
                         <div>
                             <label
-                                htmlFor="chapterLevel"
+                                htmlFor="lessonVideoUrl"
                                 className="block font-semibold text-gray-700 mb-1"
                             >
-                                Chapter Level
+                                Lesson VideoUrl
                             </label>
-                            <select
+                            <input
                                 onChange={handleChange}
-                                id="chapterLevel"
-                                name="chapterLevel"
+                                type="text"
+                                id="lessonVideoUrl"
+                                name="lessonVideoUrl"
                                 required
-                                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="Type Lesson VideoUrl..."
+                            />
+                        </div>
+                        {/* LessonThumbnailUrl */}
+                        <div>
+                            <label
+                                htmlFor="lessonThumbnailUrl"
+                                className="block font-semibold text-gray-700 mb-1"
                             >
-                                <option value="" hidden>Select Level</option>
-                                <option value="beginner" >Beginner</option>
-                                <option value="intermediate" >Intermediate</option>
-                                <option value="advance" >Advance</option>
-                            </select>
+                                Lesson ThumbnailUrl
+                            </label>
+                            <input
+                                onChange={handleChange}
+                                type="text"
+                                id="lessonThumbnailUrl"
+                                name="lessonThumbnailUrl"
+                                required
+                                className="w-full px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="Type Lesson ThumbnailUrl..."
+                            />
                         </div>
                         {/* Submit */}
                         <div className="text-center">

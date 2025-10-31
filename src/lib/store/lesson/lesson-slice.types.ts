@@ -2,13 +2,14 @@ import { Status } from "@/lib/global/types/global-type"
 
 
 export interface Ilesson {
-    chapterName: string,
-    chapterDuration:string,
-    chapterLevel:string
+    lessonName: string,
+    lessonDescription:string,
+    lessonVideoUrl:string
+    lessonThumbnailUrl:string
 }
 export interface ILesson extends Ilesson {
     id: string, 
-    courseId:string,   
+    chapterId:string,   
     createdAt: string,
     updatedAt: string
 }

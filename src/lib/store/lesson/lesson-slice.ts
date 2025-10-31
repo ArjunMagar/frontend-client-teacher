@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
 import { Status } from "@/lib/global/types/global-type";
 import teacherApi from "@/lib/global/http/api";
-import { ILesson, ILessonState } from "./lesson-slice.types";
+import { Ilesson, ILesson, ILessonState } from "./lesson-slice.types";
 
 
 const initialState: ILessonState = {
@@ -10,7 +10,7 @@ const initialState: ILessonState = {
     status: Status.LOADING
 }
 
-const chapterSlice = createSlice({
+const lessonSlice = createSlice({
     name: "chapter",
     initialState,
     reducers: {
@@ -38,8 +38,8 @@ const chapterSlice = createSlice({
 })
 
 
-export const { setStatus,setLesson,resetStatus,addLesson} = chapterSlice.actions
-export default chapterSlice.reducer
+export const { setStatus,setLesson,resetStatus,addLesson} = lessonSlice.actions
+export default lessonSlice.reducer
 
 
 export function fetchLessons(token: string,chapterId:string) {
@@ -66,29 +66,29 @@ export function fetchLessons(token: string,chapterId:string) {
     }
 }
 
-// export function createChapters(token: string,courseId:string,data:Ichapter) {
-//     return async function createCoursesThunk(dispatch: AppDispatch) {
-//         try {
-//             const response = await teacherApi.post(`/course/${courseId}/chapters`,data, {
-//                 headers: {
-//                     Authorization: `${token}`,
-//                 }
-//             })
-//             console.log(response,"chekc.........")
-//             if(response.status === 201){
-//                 dispatch(setStatus(Status.SUCCESS))
-//                 dispatch(addChapter(response.data.data))
+export function createLesson(token: string,chapterId:string,data:Ilesson) {
+    return async function createLessonThunk(dispatch: AppDispatch) {
+        try {
+            const response = await teacherApi.post(`/course/${chapterId}/lessons`,data, {
+                headers: {
+                    Authorization: `${token}`,
+                }
+            })
+            console.log(response,"chekc.........")
+            if(response.status === 201){
+                dispatch(setStatus(Status.SUCCESS))
+                dispatch(addLesson(response.data.data))
 
-//             }else{
-//                 dispatch(setStatus(Status.ERROR))
-//             }
+            }else{
+                dispatch(setStatus(Status.ERROR))
+            }
           
-//         } catch (error) {
-//             console.log(error)
-//             dispatch(setStatus(Status.ERROR))
-//         }
-//     }
-// }
+        } catch (error) {
+            console.log(error)
+            dispatch(setStatus(Status.ERROR))
+        }
+    }
+}
 
 // export function deleteCourse(token:string,id:string) {
 //     return async function deleteCourseThunk(dispatch: AppDispatch) {
