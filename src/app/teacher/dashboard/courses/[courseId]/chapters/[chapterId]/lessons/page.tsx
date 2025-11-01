@@ -71,10 +71,8 @@ function Lesson() {
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                   <th className="py-3 px-6 text-left">ID</th>
                   <th className="py-3 px-6 text-left">LessonName</th>
-                  <th className="py-3 px-6 text-left">LessonDescription</th>
-                  <th className="py-3 px-6 text-left">LessonThumbnailUrl</th>
-                  <th className="py-3 px-6 text-left">LessonVideoUrl</th>
-                  <th className="py-3 px-6 text-left">ChapterId</th>
+                  <th className="py-3 px-6 text-left">LessonDescription</th>              
+                  <th className="py-3 px-6 text-left">LessonVideoUrl</th>              
                   <th className="py-3 px-6 text-left">CreatedAt</th>
                   <th className="py-3 px-6 text-left">UpdatedAt</th>
                   <th className="py-3 px-6 text-center">Actions</th>
@@ -96,17 +94,10 @@ function Lesson() {
                         </td>
                         <td className="py-3 px-6 text-left">
                           {lesson.lessonDescription}
-                        </td>
-                        <td className="py-3 px-6 text-left">
-                          {lesson.lessonThumbnailUrl}
-                        </td>
+                        </td>                      
                         <td className="py-3 px-6 text-left">
                           {lesson.lessonVideoUrl}
-                        </td>
-                        <td className="py-3 px-6 text-left">
-                          {lesson.chapterId}
-                        </td>
-
+                        </td>                      
                         <td className="py-3 px-6 text-left">
                           {new Date(lesson.createdAt).toLocaleDateString()}
                         </td>

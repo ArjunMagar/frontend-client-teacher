@@ -72,7 +72,6 @@ function Chapter() {
                   <th className="py-3 px-6 text-left">ChapterName</th>
                   <th className="py-3 px-6 text-left">Level</th>
                   <th className="py-3 px-6 text-left">Duration</th>
-                  <th className="py-3 px-6 text-left">CourseId</th>
                   <th className="py-3 px-6 text-left">CreatedAt</th>
                   <th className="py-3 px-6 text-left">UpdatedAt</th>
                   <th className="py-3 px-6 text-left">Lessons</th>
@@ -98,11 +97,7 @@ function Chapter() {
                         </td>
                         <td className="py-3 px-6 text-left">
                           {chapter.chapterDuration}
-                        </td>
-                        <td className="py-3 px-6 text-left">
-                          {chapter.courseId}
-                        </td>
-
+                        </td>                      
                         <td className="py-3 px-6 text-left">
                           {new Date(chapter.createdAt).toLocaleDateString()}
                         </td>
